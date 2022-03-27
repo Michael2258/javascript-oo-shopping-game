@@ -21,46 +21,36 @@ const player = {
 };
 
 // Define the Product class - write the Constructor function for Product class here
-class Product {
-  constructor(id, name, price, expiryDate) {
-    this.id = id;
-    this.name = name;
-    this.price = price;
-    this.expiryDate = expiryDate;
-  }
+function Product(id, name, price, expiryDate) {
+  this.id = id;
+  this.name = name;
+  this.price = price;
+  this.expiryDate = expiryDate;
 }
 
 // Complete the dateDiff function
 const dateDiff = (date1, date2) => {
-  const d1 = new Date(date1);
-  const d2 = new Date(date2);
-
-  return Math.abs(Date(d1).getDate() - Date(d2).getDate());
+  return Math.abs(date1.getDate() - date2.getDate());
 };
 
 // Here, use Object.defineProperty to create property - daysToExpire
 Object.defineProperty(Product.prototype, "daysToExpire", {
   get: function () {
-    const currentDate = new Date();
-    const dateDiffValue = dateDiff(this.expiryDate, currentDate);
-
-    return dateDiffValue;
+    return dateDiff(this.expiryDate, new Date());
   },
 });
 
 // Add method getDetails to Product here
-Object.defineProperty(Product.prototype, "getDetails", function () {
+Product.prototype.getDetails = function () {
   return `Product Name: ${this.name}, Product Price: ${this.price}`;
-});
+};
 
 // Define the MagicProduct class here
-class MagicProduct {
-  constructor(id, name, price, expiryDate, points, isBonus) {
-    Product.call(this, id, name, price, expiryDate);
+function MagicProduct(id, name, price, expiryDate, points, isBonus) {
+  Product.call(this, id, name, price, expiryDate);
 
-    this.points = points;
-    this.isBonus = isBonus;
-  }
+  this.points = points;
+  this.isBonus = isBonus;
 }
 
 // Establish inheritance between Product() & MagicProduct() here
@@ -72,10 +62,8 @@ class Rating {
   constructor() {
     this.rate = "";
   }
-}
 
-Object.defineProperty(Rating.prototype, "rating", {
-  set: function (value) {
+  set rating(value) {
     if (value < 1 || value > 10) {
       throw new Error("Rating only accepts interger from 1 to 10 (1 included)");
     }
@@ -89,8 +77,8 @@ Object.defineProperty(Rating.prototype, "rating", {
     } else {
       this.rate = "BAD";
     }
-  },
-});
+  }
+}
 
 // Complete the loadProducts function
 const loadProducts = (map, prodId) => {
