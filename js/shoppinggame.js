@@ -64,11 +64,7 @@ class Rating {
   }
 
   set rating(value) {
-    if (value < 1 || value > 10) {
-      throw new Error("Rating only accepts interger from 1 to 10 (1 included)");
-    }
-
-    if (value >= 1 && value <= 4) {
+    if (value > 1 && value <= 4) {
       this.rate = "OK";
     } else if (value >= 5 && value <= 7) {
       this.rate = "GOOD";
